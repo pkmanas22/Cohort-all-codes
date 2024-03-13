@@ -1,0 +1,14 @@
+
+.spanContainer{
+  position: absolute;
+  bottom: 50px;
+  margin: auto;
+}
+span{
+  border: 1px solid black;
+  padding: 5px 10px;
+  font-size: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 8px 15px;
+}
