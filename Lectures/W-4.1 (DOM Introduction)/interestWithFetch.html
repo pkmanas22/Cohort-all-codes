@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<br lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="principal" type="text" oninput="backendInterest()" placeholder="Principal amount"> <br><br>
+    <input id="rate" type="text" oninput="backendInterest()" placeholder="% rate"><br><br>
+    <input id="time" type="text" oninput="backendInterest()" placeholder="time (in years)"><br><br>
+
+    <p id="output"></p>
+
+    <script>
+
+        function backendInterest() {
+            let principal = document.body.querySelector("#principal").value
+            let rate = document.body.querySelector("#rate").value
+            let time = document.body.querySelector("#time").value
+
+            const element = document.getElementById('output')
+
+            // axios
+            fetch(`https://sum-server.100xdevs.com/interest?principal=${principal}&rate=${rate}&time=${time}`)
+                .then((response) => {
+                    response.text()
+                        .then((data) => {
+                            element.innerHTML = data;
+                        })
+                })
+            
+            
+        }
+    </script>
+</body>
+
+</html>

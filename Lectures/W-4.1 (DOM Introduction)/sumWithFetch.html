@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<br lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="num1" type="text" oninput="backendSum()" placeholder="Enter number a"> <br><br>
+    <input id="num2" type="text" oninput="backendSum()" placeholder="Enter number b"><br><br>
+
+    <!-- <button onchange="backendSum()">Sum</button> -->
+
+    <p id="output"></p>
+
+    <script>
+
+        async function backendSum() {
+            let num1 = document.body.querySelector("#num1").value
+            let num2 = document.body.querySelector("#num2").value
+            const element = document.getElementById('output')
+
+            // fetch(`https://sum-server.100xdevs.com/sum?a=${num1}&b=${num2}`)
+            //     .then((response) => {
+            //         response.text()
+            //             .then((data) => {
+            //                 console.log(data);
+            //             })
+            //     })
+
+            const fetchData = await fetch(`https://sum-server.100xdevs.com/sum?a=${num1}&b=${num2}`)
+
+            const output = await fetchData.text()
+            console.log(output);
+            element.innerHTML = output;
+        }
+
+        function sum() {
+            let num1 = document.body.querySelector("#num1").value
+            let num2 = document.body.querySelector("#num2").value
+            const element = document.getElementById('output')
+            element.innerHTML = parseInt(num1) + parseInt(num2);
+        }
+    </script>
+</body>
+
+</html>

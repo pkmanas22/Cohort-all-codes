@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <input type="text" placeholder="Title" id="title"> <br>
+        <input type="text" placeholder="Description" id="desc"> <br>
+        <button onclick="addTodo()" id="btn">Add TODO</button>
+
+        <div id="todos"></div>
+
+        <script>
+            function addTodo() {
+                const title = document.getElementById('title');
+                const desc = document.getElementById('desc');
+
+                let newElement = document.createElement('div');
+                newElement.innerHTML = `
+                    <div>${title.value}</div>
+                    <div>${desc.value}</div>
+                    <button onclick="changeText(this)">Mark as done</button>
+                `;
+
+                document.getElementById('todos').appendChild(newElement);
+
+                // title.value = "";
+                // desc.value = "";
+            }
+
+            function changeText(elem) {
+                elem.innerText = "Done!"
+            }
+        </script>
+    </body>
+</html>

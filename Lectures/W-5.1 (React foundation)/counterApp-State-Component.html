@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>counterApp using State & Component</title>
+</head>
+
+<body>
+    <div id="btnParent"></div>
+
+    <script>
+        let state = {
+            count: 1
+        }
+
+        const updateCounter = () => {
+            state.count++;
+            btnCountRerender()
+        }
+
+        function btnCountRerender() {
+            const btnParent = document.querySelector('#btnParent').innerHTML = "";
+            const component = btnComponent(state.count);
+            document.querySelector('#btnParent').append(component);
+        }
+
+        const btnComponent = (count) => {
+            const btn = document.createElement('button');
+            btn.setAttribute("onClick", 'updateCounter()');
+            btn.innerHTML = "Counter " + count;
+            return btn;
+        }
+
+        btnCountRerender()
+    </script>
+</body>
+
+</html>

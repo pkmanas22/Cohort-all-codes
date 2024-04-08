@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<br lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <input id="num1" type="text" oninput="debouncingBackendSum()" placeholder="Enter number a"> <br><br>
+    <input id="num2" type="text" oninput="debouncingBackendSum()" placeholder="Enter number b"><br><br>
+
+    <p id="output"></p>
+
+    <script>
+        let timeout;
+        function debouncingBackendSum() {
+            clearTimeout(timeout)
+            timeout = setTimeout(function () {
+                backendSum()
+            }, 1000);
+        }
+
+        async function backendSum() {
+            let num1 = document.body.querySelector("#num1").value
+            let num2 = document.body.querySelector("#num2").value
+            const element = document.getElementById('output')
+
+            // fetch(`https://sum-server.100xdevs.com/sum?a=${num1}&b=${num2}`)
+            //     .then((response) => {
+            //         response.text()
+            //             .then((data) => {
+            //                 element.innerHTML = data
+            //             })
+            //     })
+
+            // using axios
+            const response = await axios.get(`https://sum-server.100xdevs.com/sum?a=${num1}&b=${num2}`)
+            
+            element.innerHTML = response.data;
+        }
+    </script>
+</body>
+
+</html>

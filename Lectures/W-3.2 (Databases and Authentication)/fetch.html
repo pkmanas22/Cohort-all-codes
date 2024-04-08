@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Calling</title>
+</head>
+
+<body>
+    <button onclick="fetchFromServer()">Generate products</button>
+    <button onclick="getAnimals()">Get Animal</button>
+
+    <div id="container"></div>
+    <script>
+        async function fetchFromServer() {
+            const all = await fetch('https://fakestoreapi.com/products/');
+            const data = all.json();
+            data.then(function (value) {
+                value.forEach(each => {
+                    const elem = document.createElement('div');
+                    elem.innerHTML = JSON.stringify(each.title)
+                    document.body.append(elem);
+                    console.log(each.title);
+                });
+            })
+        }
+
+        fetch('<https://api.example.com/data>')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data from server:', data);
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+
+        function getAnimals() {
+            fetch("https://fakerapi.it/api/v1/persons")
+                .then(async function (response) {
+                    const jsonData = await response.json();
+                    document.getElementById("container").innerHTML = JSON.stringify(jsonData.data);
+                })
+        }
+    </script>
+</body>
+
+</html>
