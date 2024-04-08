@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.card {
+    width: 100%;
+    height: fit-content;
+    margin: 50px;
+}
+
+.each-card {
+    width: 70%;
+    height: 100%;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: auto;
+    display: flex;
+    background: #ece6e6;
+    /* margin-top: 100px; */
+}
+
+.each-card .additional {
+    width: 35%;
+    height: 100%;
+    position: relative;
+}
+
+.each-card .additional .nameDiv {
+    transform: rotate(320deg);
+    transform-origin: 173px 73px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 800;
+    color: #029e02;
+    position: relative;
+    top: 80px;
+}
+
+.each-card .additional .imgDiv {
+    width: 70px;
+    height: 50px;
+    position: absolute;
+    top: 0px;
+    margin: 10px;
+    border: 5px double black;
+    border-radius: 50%;
+    padding: 7px;
+}
+
+.each-card .additional .imgDiv img {
+    width: 100%;
+    height: 100%;
+}
+
+.each-card .content {
+    width: 65%;
+    height: 100%;
+    padding: 5px;
+    background: #f7cce5;
+    border-radius: 0 10px 10px 0;
+    border-left: 6px groove #018a01;
+}
+
+.each-card .content div>h1 {
+    /* background: yellow; */
+    text-align: center;
+    font-size: 25px;
+    padding: 20px 10px 5px 10px;
+}
+
+.each-card .content div>p {
+    text-align: center;
+    font-size: 20px;
+    color: #535051;
+}
+
+.each-card .content div h3 {
+    font-size: 20px;
+    color: #6f01c9;
+}
+
+.each-card .content div .interestLists {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.each-card .content div .interestLists li {
+    list-style: none;
+    background: #c9c6c6;
+    font-size: 16px;
+    text-align: center;
+    padding: 5px 3px;
+    border-radius: 7px;
+    border: none;
+    color: #025002;
+}
+
+/* Target the fourth list item */
+.each-card .content div .interestLists li:nth-child(4) {
+    grid-row: 2;
+    /* Place it in the second row */
+    grid-column: 2 / 3;
+    /* Span it across the second column */
+}
+
+.each-card .content .social-media {
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.each-card .content .social-media a {
+    background: #02609e;
+    font-size: 20px;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    transition: background 0.3s ease;
+}
+
+.each-card .content .social-media a:hover {
+    background: #e65512cc;
+}

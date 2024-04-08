@@ -1,0 +1,61 @@
+.cardForm {
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    position: relative;
+    top: 50px;
+    padding: 20px;
+    border: 5px solid;
+    /* Remove 'double' */
+    border-image: linear-gradient(45deg, #ff7e5f, #2cac05);
+    /* Define gradient */
+    border-image-slice: 1;
+    /* Make gradient border visible */
+    font-size: 18px;
+}
+
+
+.cardForm input {
+    font-size: 15px;
+    padding: 3px 5px;
+    margin-bottom: 10px;
+}
+
+.cardForm fieldset {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.cardForm fieldset legend span {
+    font-size: 13px;
+}
+
+.cardForm fieldset input {
+    width: 45%;
+    margin-left: 10px;
+}
+
+.cardForm .socialMedia input {
+    width: 70%;
+}
+
+.cardForm .submitBtn {
+    margin: auto;
+    width: fit-content;
+}
+
+.cardForm .submitBtn button {
+    font-size: 20px;
+    padding: 7px 20px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 0.5px solid black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cardForm .submitBtn button:hover {
+    background: #1b48db;
+    color: #eeeeee;
+}
