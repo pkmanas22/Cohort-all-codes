@@ -1,0 +1,17 @@
+import axios from "axios";
+import { atomFamily, selectorFamily } from "recoil";
+
+export const todosAtomFamily = atomFamily({
+    key: 'todosAtomFamily',
+    default: selectorFamily({
+        key: 'selector family',
+        get: function (id) {
+            return async function () {
+                await new Promise(t => setTimeout(t, 5000))     // artificial delay
+                const res = await axios.get('https://sum-server.100xdevs.com/todo?id=' + id);
+                return res.data.todo;
+            }
+        }
+        // this return an async functin which return todo json data
+    })
+})
