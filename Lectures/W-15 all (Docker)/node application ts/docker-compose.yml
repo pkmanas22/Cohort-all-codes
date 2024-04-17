@@ -1,0 +1,60 @@
+version: '3.8' # version of the docker-compose
+
+services:
+  # mongo sevices
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  # backend services
+  backend:
+    # image: backend      --> we can use image or build
+    build: .      # it build the image
+    container_name: backend_app
+    depends_on:
+      - mongodb
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL="mongodb://mongodb:27017"
+
+# volumes to create
+volumes:
+  mongodb_data:
+
+
+# {
+#   "version": "3.8",
+#   "services": {
+#     "monogdb": {
+#       "image": "mongo",
+#       "container_name": "mongodb",
+#       "ports": [
+#         "27017:27017"
+#       ],
+#       "volumes": [
+#         "mongodb_data:/data/db"
+#       ]
+#     },
+#     "backend": {
+#       "build": ".",
+#       "container_name": "backend_app",
+#       "depends_on": [
+#         "mongodb"
+#       ],
+#       "ports": [
+#         "3000:3000"
+#       ],
+#       "environment": [
+#         "MONGO_URL=\"mongodb://mongodb:27017\""
+#       ]
+#     }
+#   },
+#   "volumes": {
+#     "mongodb_data": null
+#   }
+# }
