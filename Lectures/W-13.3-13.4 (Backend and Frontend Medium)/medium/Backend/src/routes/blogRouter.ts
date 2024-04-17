@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { handleCreateNewBlog, handleGetAllBlogs, handleGetAllPublishedBlogs, handleGetSpecificBlog, handleUpdateBlog } from "../controller/blogMethod";
+import { handleCreateNewBlog, handleGetAllBlogs, handleGetAllPublishedBlogs, handleGetSpecificBlog, handleMyAllBlogs, handleUpdateBlog } from "../controller/blogMethod";
 import { authMiddleware } from "../authMiddleware";
 
 const blogRouter = new Hono();
@@ -7,6 +7,8 @@ const blogRouter = new Hono();
 blogRouter.use('/*', authMiddleware);
 
 blogRouter.get('/published', handleGetAllPublishedBlogs);
+
+blogRouter.get('/myblogs', handleMyAllBlogs);
 
 blogRouter.get('/:blogId', handleGetSpecificBlog);
 

@@ -7,12 +7,14 @@ import axios from "axios";
 import { backendUrl } from "../utils/backendUrl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoadingBtn } from "../utils/loadingBtn";
 
 export const SignInComp = () => {
     const [serverError, setServerError] = useState(null);
     const [tempEmail, setTempEmail] = useState("")
     const [tempPassword, setTempPassword] = useState("")
     const navigate = useNavigate();
+    const [btnLoading, setBtnLoading] = useState(false);
 
     const email = useDebounceHook(tempEmail);
     const password = useDebounceHook(tempPassword);
@@ -26,13 +28,14 @@ export const SignInComp = () => {
         register,
         handleSubmit,
         formState: { errors },
-        setError,
+        // setError,
     } = useForm<signInType>({
         resolver: zodResolver(signInSchema)
     });
 
 
     const handleFormSubmit = async () => {
+        setBtnLoading(true);
 
         setServerError(null);
 
@@ -48,10 +51,10 @@ export const SignInComp = () => {
                     // console.log(err.response.data);
                     setServerError(err.response.data.msg)
                 })
+                setBtnLoading(false);
         }, 1000);
 
     }
-
 
     return (
         <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col justify-center items-center gap-3">
@@ -93,10 +96,20 @@ export const SignInComp = () => {
             {serverError && <span className="font-bold text-red-800 rounded-lg bg-red-50">
                 {serverError}</span>}
 
-            <button type="submit"
+            {/* <button type="submit"
                 className="w-[50%] text-white outline bg-black opacity-90 hover:opacity-100 font-medium rounded-full px-4 py-1.5 text-center cursor-pointer">
                 Sign in
-            </button>
+            </button> */}
+
+            {
+                btnLoading ?
+                    <LoadingBtn /> :
+                    <button type="submit"
+                        className="w-[50%] text-white outline bg-black opacity-90 hover:opacity-100 font-medium rounded-full px-4 py-1.5 text-center cursor-pointer">
+                        Sign in
+                    </button>
+            }
+
         </form>
     )
 }

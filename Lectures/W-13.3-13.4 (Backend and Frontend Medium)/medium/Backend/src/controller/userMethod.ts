@@ -59,7 +59,7 @@ export const handleUserSignup = async (c: Context) => {
         })
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         c.status(503);
         return c.json({
             msg: "Internal error occured"

@@ -2,17 +2,18 @@ import { useState } from "react";
 import { AppBar } from "../components/AppBar"
 import { useNavigate } from "react-router-dom";
 import useDebounceHook from "../utils/debounceHook";
-import { createPostSchema, createPostType } from "@manaskp/commonmedium";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { createPostType } from "@manaskp/commonmedium";
 import axios from "axios";
 import { backendUrl } from "../utils/backendUrl";
 
 export const CreatePost = () => {
-    const [serverError, setServerError] = useState(null);
+    const [serverError, setServerError] = useState<{
+        title: string,
+        content: string,
+    }>();
     const [tempTitle, setTempTitle] = useState("");
     const [tempContent, setTempContent] = useState("");
-    const [subtitle, setSubtitle] = useState("");
+    // const [subtitle, setSubtitle] = useState("");
     const navigate = useNavigate();
 
     const title = useDebounceHook(tempTitle);
@@ -26,8 +27,11 @@ export const CreatePost = () => {
     }
 
     const handleFormSubmit = async () => {
-        setServerError(null);
-        console.log("hi");
+        setServerError({
+            title: "",
+            content: "",
+        });
+        // console.log("hi");
 
         const token = localStorage.getItem("token");
 
@@ -46,19 +50,18 @@ export const CreatePost = () => {
                 // navigate("/");
             })
             .catch((err) => {
-                console.log(err.response.data);
+                // console.log(err.response.data);
                 setServerError(err.response.data)
             })
     }
     return (
         <>
-            <AppBar loggedIn={true} />      {/* Always true */}
+            <AppBar loggedIn={true} name={""} />      {/* Always true */}
 
             {serverError && <div className="font-bold text-center text-red-800 rounded-lg bg-red-50">
                 <div>{serverError.title}</div>
                 <div>{serverError.content}</div>
             </div>}
-
             <div className='p-8 grid grid-cols-12 w-full'>
                 <div onClick={handleFormSubmit} className='flex text-xl col-span-2 justify-end p-2 border-r-2'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="gray"
@@ -87,7 +90,7 @@ export const CreatePost = () => {
 
                     <textarea
                         minLength={10}
-                        placeholder='Content'
+                        placeholder='Click on the plus icon for create post'
                         onChange={(e) => {
                             setTempContent(e.target.value)
                         }}

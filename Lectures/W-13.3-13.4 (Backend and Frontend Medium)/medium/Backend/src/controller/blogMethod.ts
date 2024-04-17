@@ -5,10 +5,10 @@ import { createPostSchema, updatePostSchema } from "@manaskp/commonmedium";
 export const handleGetAllPublishedBlogs = async (c: Context) => {
     const prisma = await prismaGenerator(c.env.DATABASE_URL)
     const isLoggedIn = c.get('loggedIn');
-    
+
     if (isLoggedIn) {
         const user = c.get('user');
-        
+
         try {
             const allBlogs = await prisma.post.findMany({
                 where: {
@@ -32,9 +32,9 @@ export const handleGetAllPublishedBlogs = async (c: Context) => {
                     }
                 }
             });
-            console.log(allBlogs);
-            
-            return c.json({allBlogs, userName: user.name});
+            // console.log(allBlogs);
+
+            return c.json({ allBlogs, userName: user.name });
         } catch (error) {
             c.status(500)
             return c.json({ error });
@@ -56,7 +56,7 @@ export const handleGetAllPublishedBlogs = async (c: Context) => {
                 }
             }
         });
-        return c.json({allBlogs});
+        return c.json({ allBlogs });
     } catch (error) {
         c.status(500)
         return c.json({ error });
@@ -77,6 +77,39 @@ export const handleGetAllBlogs = async (c: Context) => {
     }
 }
 
+export const handleMyAllBlogs = async (c: Context) => {
+    const prisma = await prismaGenerator(c.env.DATABASE_URL)
+
+    const user = c.get('user');
+    console.log("user " + user);
+    
+    try {
+        const allBlogs = await prisma.post.findMany({
+            where: {
+                authorId: user.id
+            },
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                author: {
+                    select: {
+                        name: true,
+                    },
+                }
+            }
+        });
+        console.log(allBlogs);
+
+        return c.json({ allBlogs, userName: user.name });
+    } catch (error) {
+        c.status(500)
+        console.log(error);
+        
+        return c.json({ error });
+    }
+}
+
 export const handleGetSpecificBlog = async (c: Context) => {
     const prisma = await prismaGenerator(c.env.DATABASE_URL)
     const blogId = c.req.param('blogId')
@@ -91,6 +124,7 @@ export const handleGetSpecificBlog = async (c: Context) => {
             select: {
                 title: true,
                 content: true,
+                published: true,
                 author: {
                     select: {
                         name: true,
@@ -102,7 +136,7 @@ export const handleGetSpecificBlog = async (c: Context) => {
             c.status(403)
             return c.json({ error: 'Blog not found' })
         }
-        return c.json({blog, userName});
+        return c.json({ blog, userName });
     } catch (error) {
         c.status(500)
         return c.json({ error });

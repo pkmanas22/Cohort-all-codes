@@ -575,10 +575,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@manaskp/commonmedium@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@manaskp/commonmedium/-/commonmedium-1.0.1.tgz#886b2f25213d7d2fac7aaa4b66b710ecbdd27b4f"
-  integrity sha512-rFUFLqkv1hKjSiep902XRrTSH8rirhaJTFXUO1y5zCZEUeQMJmG6R3SsUeENgTIkKB5LQFassn0UgRKKMiHMzg==
+"@manaskp/commonmedium@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@manaskp/commonmedium/-/commonmedium-1.0.3.tgz#00f0fb0e35677143b21f6588150f498a13c5c6ee"
+  integrity sha512-T8qKKBjQJVbjh1nJms1EJAV8TXbWcDZMrtc6s0UVlIeNcE5aWJRswGtrce8E3enXfpo8vj1NxiNFrqzXxwdZNQ==
   dependencies:
     zod "^3.22.4"
 

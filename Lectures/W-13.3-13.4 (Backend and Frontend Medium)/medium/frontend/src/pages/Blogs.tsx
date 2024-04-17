@@ -5,14 +5,22 @@ import { AppBar } from '../components/AppBar';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { backendUrl } from '../utils/backendUrl';
-import { BlogCard } from '../components/Skeleton';
+import { AppBarSkeleton, BlogCardSkeleton } from '../components/Skeleton';
 
+type BlogsCardType = {
+  id: string,
+  title: string,
+  content: string,
+  author: {
+    name: string,
+  }
+}
 
 export const Blogs = () => {
   const navigate = useNavigate();
-  const [publicPosts, setPublicPosts] = useState([]);
+  const [publicPosts, setPublicPosts] = useState<BlogsCardType[]>([]);
   const [error, setError] = useState("");
-  const [loggedIn, setLoggedIn] = useState();
+  const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
 
   const fetchPublicPosts = async () => {
@@ -31,7 +39,7 @@ export const Blogs = () => {
       }
       const allPosts = data.allBlogs;
       setPublicPosts(allPosts);
-      console.log(publicPosts);
+      // console.log(publicPosts);
 
     } catch (error) {
       setError("There is something in our backend");
@@ -56,10 +64,10 @@ export const Blogs = () => {
   if (publicPosts.length <= 0) {
     return (
       <>
-        <AppBar loggedIn={loggedIn} name={userName} />
-        < BlogCard />
-        < BlogCard />
-        < BlogCard />
+        < AppBarSkeleton />
+        < BlogCardSkeleton />
+        < BlogCardSkeleton />
+        < BlogCardSkeleton />
       </>
     );
   }

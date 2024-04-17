@@ -3,13 +3,25 @@ import { useParams } from 'react-router-dom';
 import { AppBar } from '../components/AppBar';
 import { BlogComponent } from '../components/BlogComponent';
 import { backendUrl } from '../utils/backendUrl';
-import { BlogPage } from '../components/Skeleton';
+import { AppBarSkeleton, BlogPageSkeleton } from '../components/Skeleton';
+
+export type blogType = {
+    title: string,
+    subTitle: string,
+    content: string,
+    author: {
+        name: string
+    },
+    bio: string,
+    publishedDate: string,
+    readingTime: number
+}
 
 export const Blog = () => {
     const { id } = useParams();
-    const [blog, setBlog] = useState(null);
-    const [error, setError] = useState(null);
-    const [loggedIn, setLoggedIn] = useState();
+    const [blog, setBlog] = useState<blogType>();
+    const [error, setError] = useState("");
+    const [loggedIn, setLoggedIn] = useState(false);
     const [userName, setUserName] = useState('');
 
     const getPostById = async () => {
@@ -29,7 +41,11 @@ export const Blog = () => {
                 setUserName(data.userName)
                 setLoggedIn(true);
             }
-            setBlog(data.blog);
+            if (data.blog) {
+                setBlog(data.blog);
+            } else {
+                setError('Something happens')
+            }
         } catch (error) {
             setError("Some Error Occured");
         }
@@ -37,7 +53,7 @@ export const Blog = () => {
 
     useEffect(() => {
         getPostById();
-    }, [loggedIn]);
+    }, []);
 
     if (error) {
         return (
@@ -53,8 +69,8 @@ export const Blog = () => {
     if (!blog) {
         return (
             <>
-                <AppBar loggedIn={loggedIn} name={userName} />
-                < BlogPage />
+                < AppBarSkeleton />
+                < BlogPageSkeleton />
             </>
         );
     }

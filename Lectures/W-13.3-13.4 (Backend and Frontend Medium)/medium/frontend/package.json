@@ -18,7 +18,7 @@
   "devDependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "@manaskp/commonmedium": "^1.0.1",
+    "@manaskp/commonmedium": "^1.0.3",
     "@mui/material": "^5.15.15",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",

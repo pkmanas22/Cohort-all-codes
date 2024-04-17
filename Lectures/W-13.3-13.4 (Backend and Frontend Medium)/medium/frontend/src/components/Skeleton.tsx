@@ -1,7 +1,45 @@
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
+import { useNavigate } from 'react-router-dom';
 
-export const BlogCard = () => {
+export const AppBarSkeleton = () => {
+    const navigate = useNavigate()
+    return (
+        <div className='px-6 py-2 flex  justify-between items-center border-b-2 shadow-md'>
+            <div
+                onClick={() => {
+                    navigate('/');
+                }}
+                className='text-xl font-bold italic cursor-pointer'>
+                BlogVista
+            </div>
+            <div className='flex gap-2 pr-2 items-center'>
+
+                <div className='text-lg font-semibold italic outline outline-2 px-4 rounded-xl outline-slate-400 cursor-pointer hover:bg-slate-100'
+                >
+                    Write
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export const CreateCardSkeleton = () => {
+
+    return (
+        <div className='w-[80%] mt-5 m-auto grid grid-cols-12'>
+            <div className='h-[60vh] col-span-2 border-r-2 flex justify-end'>
+                <Skeleton sx={{ right: '0px', display: 'absolute' }} animation="wave" variant="circular" width={50} height={50} />
+            </div>
+            <div className='col-span-10'>
+                <Skeleton sx={{ height: '30px' }} animation="wave" />
+                <Skeleton sx={{ height: '70px' }} animation="wave" />
+            </div>
+        </div>
+    )
+}
+
+export const BlogCardSkeleton = () => {
 
     return (
         <>
@@ -21,7 +59,7 @@ export const BlogCard = () => {
     )
 }
 
-export const BlogPage = () => {
+export const BlogPageSkeleton = () => {
 
     return (
         <>

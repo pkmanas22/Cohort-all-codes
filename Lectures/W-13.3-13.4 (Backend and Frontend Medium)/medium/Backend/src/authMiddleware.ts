@@ -6,7 +6,7 @@ export const authMiddleware = async (c: Context, next: () => {}) => {
     const authHeader = c.req.header("authorization") || " ";
 
     const token = authHeader.split(' ')[1];
-    console.log(token)
+    // console.log(token)
     if (!token) {
         // c.status(401);
         // return c.json({
@@ -31,6 +31,8 @@ export const authMiddleware = async (c: Context, next: () => {}) => {
                 msg: "Invalid userId and password"
             })
         }
+        // console.log(user);
+        
         c.set('user', user);
         c.set('loggedIn', true);
         await next();

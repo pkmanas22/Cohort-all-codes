@@ -27,7 +27,7 @@ const createPostSchema = z.object({
 
     content: z.string().trim()
         .min(10, { message: "Your description must be at least 10 characters long" })
-        .max(150, { message: "Your description cannot be exceed more than 150 characters" })
+        .max(2000, { message: "Your description cannot be exceed more than 2000 characters" })
 })
 
 const updatePostSchema = z.object({

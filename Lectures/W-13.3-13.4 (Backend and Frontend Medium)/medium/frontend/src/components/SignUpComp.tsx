@@ -7,6 +7,7 @@ import axios from "axios";
 import { backendUrl } from "../utils/backendUrl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoadingBtn } from "../utils/loadingBtn";
 
 export const SignUpComp = () => {
     const [serverError, setServerError] = useState(null);
@@ -14,6 +15,7 @@ export const SignUpComp = () => {
     const [tempName, setTempName] = useState("")
     const [tempPassword, setTempPassword] = useState("")
     const navigate = useNavigate();
+    const [btnLoading, setBtnLoading] = useState(false);
 
     const name = useDebounceHook(tempName);
     const email = useDebounceHook(tempEmail);
@@ -29,13 +31,14 @@ export const SignUpComp = () => {
         register,
         handleSubmit,
         formState: { errors },
-        setError,
+        // setError,
     } = useForm<signUpType>({
         resolver: zodResolver(signupSchema)
     });
 
 
     const handleFormSubmit = async () => {
+        setBtnLoading(true);
 
         setServerError(null);
 
@@ -51,6 +54,7 @@ export const SignUpComp = () => {
                     // console.log(err.response.data);
                     setServerError(err.response.data.msg)
                 })
+                setBtnLoading(false);
         }, 1000);
 
     }
@@ -106,11 +110,14 @@ export const SignUpComp = () => {
 
             {serverError && <span className="font-bold text-red-800 rounded-lg bg-red-50">
                 {serverError}</span>}
-
-            <button type="submit"
-                className="w-[50%] text-white outline bg-black opacity-90 hover:opacity-100 font-medium rounded-full px-4 py-1.5 text-center cursor-pointer">
-                Sign up
-            </button>
+            {
+                btnLoading ?
+                    <LoadingBtn /> :
+                    <button type="submit"
+                        className="w-[50%] text-white outline bg-black opacity-90 hover:opacity-100 font-medium rounded-full px-4 py-1.5 text-center cursor-pointer">
+                        Sign up
+                    </button>
+            }
         </form>
     )
 }
