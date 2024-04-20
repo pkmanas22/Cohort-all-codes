@@ -1,24 +1,66 @@
-# Logs
-**/logs
-**/*.log
+# Node.js dependencies
+**/node_modules/
+
+# npm debug log
 **/npm-debug.log*
-**/yarn-debug.log*
-**/yarn-error.log*
-**/pnpm-debug.log*
-**/lerna-debug.log*
 
-**/node_modules
-**/dist
-**/dist-ssr
-**/*.local
+# Yarn integrity file
+**/.yarn-integrity
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-**/.idea
+# Environment configuration
+**/.env
+
+# Compiled output
+**/build/
+**/dist/
+**/out/
+**/public/assets/
+**/public/build/
+**/public/uploads/
+
+# IDE and editor settings
+**/.idea/
+**/.vscode/
+**/*.sublime-*
+
+# Logs and temporary files
+**/logs/
+**/*.log
+**/*.tmp
+**/*.swp
+
+# Dependency managers
+**/bower_components/
+**/vendor/
+
+# Compiled files
+**/*.min.css
+**/*.min.js
+
+# Package managers
+**/*.lock
+**/*.package-lock.json
+**/yarn.lock
+
+# OS generated files
 **/.DS_Store
-**/*.suo
-**/*.ntvs*
-**/*.njsproj
-**/*.sln
-**/*.sw?
+**/Thumbs.db
+
+# Build tools
+**/*.cache/
+**/.cache-loader/
+**/.cache/
+**/.next/
+**/.nuxt/
+**/.tmp/
+**/.coverage/
+**/coverage/
+**/.jest/
+**/node_modules.bak/
+
+# Compiled files
+**/*.map
+
+# Runtime data
+**/npm-debug.log*
+**/yarn-error.log*
