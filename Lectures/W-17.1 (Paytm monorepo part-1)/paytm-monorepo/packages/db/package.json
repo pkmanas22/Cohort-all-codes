@@ -1,0 +1,22 @@
+{
+  "name": "@manaspaytm/db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^5.12.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.12.1"
+  },
+  "exports": {
+    "./client": "./index.ts"
+  }
+}
