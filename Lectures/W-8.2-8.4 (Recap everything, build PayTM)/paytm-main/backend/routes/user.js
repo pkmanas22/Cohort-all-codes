@@ -146,14 +146,17 @@ userRouter.post('/signin', async (req, res) => {
 userRouter.get('/bulk', async (req, res) => {
     const filter = req.query.filter || "";
     // console.log(filter);
+
+    const regex = new RegExp(filter, "i");
+    
     const users = await User.find({
         $or: [{
             firstName: {
-                "$regex": filter,
+                "$regex": regex,
             }
         }, {
             lastName: {
-                "$regex": filter,
+                "$regex": regex,
             }
         }]
     })
