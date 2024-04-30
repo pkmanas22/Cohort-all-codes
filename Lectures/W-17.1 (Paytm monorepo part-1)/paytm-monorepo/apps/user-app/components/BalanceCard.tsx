@@ -13,7 +13,7 @@ export default function BalanceCard({ amount, locked }: {
                     Unlocked Balance
                 </div>
                 <div>
-                    {amount / 100} INR
+                    {(amount / 100).toFixed(2)} INR
                 </div>
             </div>
 
@@ -22,16 +22,16 @@ export default function BalanceCard({ amount, locked }: {
                     Locked balance
                 </div>
                 <div>
-                    {locked / 100} INR
+                    {(locked / 100).toFixed(2)} INR
                 </div>
             </div>
 
-            <div className="flex justify-between border-b border-slate-300 pb-2">
+            <div className="flex justify-between border-b font-semibold border-slate-300 pb-2">
                 <div>
                     Total balance
                 </div>
                 <div>
-                    {(locked + amount) / 100} INR
+                    {((locked + amount) / 100).toFixed(2)} INR
                 </div>
             </div>
 

@@ -13,7 +13,7 @@ async function getBalance() {
 
     const balance = await db.balance.findFirst({
       where: {
-        userId: session?.user?.id
+        userId: session?.user?.id,
       }
     })
 
@@ -33,10 +33,14 @@ async function getOnRampTransactions() {
     const txns = await db.onRampTransaction.findMany({
       where: {
         userId: session?.user.id,
+      },
+      orderBy: {
+        startTime: 'asc'
       }
     });
 
     return txns.map(t => ({
+      id: t.id,
       time: t.startTime,
       amount: t.amount,
       status: t.status,

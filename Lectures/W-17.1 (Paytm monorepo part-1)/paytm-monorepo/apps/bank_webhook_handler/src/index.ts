@@ -3,6 +3,11 @@ import db from '@manaspaytm/db/client'
 import z from 'zod'
 
 const app = express();
+app.use(express.json())
+
+app.get('/', (req, res) => {
+    res.send("hi there")
+})
 
 app.post("/hdfcwebhook", async (req, res) => {
     //TODO: Add zod validation here?
@@ -16,6 +21,7 @@ app.post("/hdfcwebhook", async (req, res) => {
     const response = paymentInformationSchema.safeParse(req.body);
 
     if (!response.success) {
+        console.log(response.error)
         return res.status(400).json({
             msg: "Invalid data format"
         })
@@ -39,6 +45,9 @@ app.post("/hdfcwebhook", async (req, res) => {
                     amount: {
                         // You can also get this from your DB
                         increment: Number(paymentInformation.amount)
+                    },
+                    locked: {
+                        decrement: Number(paymentInformation.amount)
                     }
                 }
             }),
@@ -64,5 +73,5 @@ app.post("/hdfcwebhook", async (req, res) => {
 })
 
 app.listen(8000, () => {
-    "serverhook started at 8000"
+    console.log("serverhook started at 8000");
 })

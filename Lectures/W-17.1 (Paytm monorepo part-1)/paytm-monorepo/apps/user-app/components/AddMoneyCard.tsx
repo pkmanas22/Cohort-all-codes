@@ -5,6 +5,7 @@ import { Card } from '@repo/ui/card';
 import { Select } from '@repo/ui/select';
 import { TextInput } from '@repo/ui/text-input';
 import React, { useState } from 'react'
+import { createOnRampTrans } from '../app/lib/action/createOnRampTrans';
 
 const SUPPORTED_BANKS = [{
     name: "HDFC Bank",
@@ -14,8 +15,11 @@ const SUPPORTED_BANKS = [{
     redirectUrl: "https://www.axisbank.com/"
 }];
 
+
 export default function AddMoneyCard() {
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl)
+    const [amount, setAmount] = useState(0);
+    const [provider, setProvider] = useState(SUPPORTED_BANKS[0]?.name || "");
 
     return (
         <Card title='Add Money'>
@@ -23,9 +27,11 @@ export default function AddMoneyCard() {
                 <TextInput
                     id='amount'
                     label='Amount (in RS)'
+                    type='number'
                     placeholder='Amount'
                     onChange={(e) => {
-
+                        // console.log(amount)
+                        setAmount(parseFloat(e))
                     }} />
 
                 <div className="py-4 text-left">
@@ -35,6 +41,7 @@ export default function AddMoneyCard() {
                 <Select
                     onSelect={(value) => {
                         setRedirectUrl(SUPPORTED_BANKS.find(x => x.name === value)?.redirectUrl)
+                        setProvider(SUPPORTED_BANKS.find(x => x.name === value)?.name || "")
                     }}
                     options={
                         SUPPORTED_BANKS.map(x => ({
@@ -45,8 +52,20 @@ export default function AddMoneyCard() {
 
                 <div className="flex justify-center pt-4">
                     <Button
-                        onclick={() => {
-                            window.location.href = redirectUrl || ""
+                        onclick={async () => {
+                            // window.location.href = redirectUrl || ""
+                            if (amount < 1 || !redirectUrl) {
+                                if (amount < 1) {
+                                    alert("please enter valid amount")
+                                } else {
+                                    alert("pease choose provider")
+                                }
+                            } else {
+                                const intAmount = generateIntAmount(amount);
+                                await createOnRampTrans(provider, intAmount)
+                                await alert(`Successfully added ${intAmount / 100}`)
+                                location.reload()
+                            }
                         }}>
                         Add Money
                     </Button>
@@ -54,4 +73,22 @@ export default function AddMoneyCard() {
             </div>
         </Card>
     )
+}
+
+function generateIntAmount(amount: number): number {
+    const stringAmount = amount.toString();
+    const arr = stringAmount.split('.');
+    let finalAmount = Number(arr[0]) * 100;
+
+    if (!arr[1]) {
+        return finalAmount;
+    } else {
+        const decimalValue = arr[1];
+
+        if (decimalValue.length === 1) {
+            return finalAmount + (Number(decimalValue.charAt(0)) * 10);
+        } else {
+            return finalAmount + Number(decimalValue.charAt(0) + decimalValue.charAt(1));
+        }
+    }
 }

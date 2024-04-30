@@ -20,10 +20,10 @@ export const authOptions = {
                     placeholder: "********"
                 }
             },
-            // TODO: User credentials type from next-aut
-            async authorize(credentials: any) {
+            // TODO: User credentials type from next-auth
+            async authorize(credentials: any):Promise<any> {
 
-                const hashedPassword = await bcrypt.hash(credentials.password, 10)
+                // const hashedPassword = await bcrypt.hash(credentials.password, 10)
 
                 const existingUser = await db.user.findFirst({
                     where: {
@@ -44,8 +44,8 @@ export const authOptions = {
 
                     return null;
                 }
-
-                try {
+                
+                /*try {
                     const user = await db.user.create({
                         data: {
                             number: credentials.phone,
@@ -61,7 +61,7 @@ export const authOptions = {
                 } catch (e) {
                     console.error(e);
                     return null;
-                }
+                }*/
             },
         })
     ],
@@ -77,5 +77,7 @@ export const authOptions = {
 
             return session
         }
-    }
+    },
+    // whether authentication is mandatory (true) or optional (false) for accessing protected routes or resources.
+    required: true // or false depending requirement
 }
