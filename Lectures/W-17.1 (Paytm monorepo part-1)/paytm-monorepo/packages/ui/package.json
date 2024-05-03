@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
+    "./drop-down": "./src/drop-down.tsx",
     "./text-input": "./src/text-input.tsx",
     "./select": "./src/select.tsx",
     "./center": "./src/center.tsx",
