@@ -67,7 +67,7 @@ export default function SendMoneyCard() {
                                     if (result && result.message === "Transfer successful") {
                                         alert("Transfer successful");
                                     } else {
-                                        alert("Error: Some error occured");
+                                        alert("Error: " + (result && result.message ? result.message : "Unknown error"));
                                     }
                                 } else {
                                     alert('Error: Please enter valid input');
