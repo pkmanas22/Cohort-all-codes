@@ -8,7 +8,13 @@ export const authOptions = {
     providers: [
         CredentialProvider({
             name: "Phone Number",
+            
             credentials: {
+                name: {
+                    label: "Full Name",
+                    type: "text",
+                    placeholder: "John Doe"
+                },
                 phone: {
                     label: "Phone Number",
                     type: "text",
@@ -21,9 +27,9 @@ export const authOptions = {
                 }
             },
             // TODO: User credentials type from next-auth
-            async authorize(credentials: any):Promise<any> {
+            async authorize(credentials: any): Promise<any> {
 
-                // const hashedPassword = await bcrypt.hash(credentials.password, 10)
+                const hashedPassword = await bcrypt.hash(credentials.password, 10)
 
                 const existingUser = await db.user.findFirst({
                     where: {
@@ -44,12 +50,21 @@ export const authOptions = {
 
                     return null;
                 }
-                
-                /*try {
+
+                try {
                     const user = await db.user.create({
                         data: {
+                            name: credentials.name,
                             number: credentials.phone,
                             password: hashedPassword
+                        }
+                    })
+
+                    await db.balance.create({
+                        data: {
+                            userId: user.id,
+                            amount: 0,
+                            locked: 0
                         }
                     })
 
@@ -61,9 +76,9 @@ export const authOptions = {
                 } catch (e) {
                     console.error(e);
                     return null;
-                }*/
+                }
             },
-        })
+        }),
     ],
     secret: process.env.JWT_SECRET || "secret",
     callbacks: {
@@ -72,8 +87,8 @@ export const authOptions = {
             session: Session
         }) {
             if (session?.user) {
-                session.user.id= token.sub as string;
-            } 
+                session.user.id = token.sub as string;
+            }
 
             return session
         }

@@ -5,15 +5,19 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     "next.config.js",
     "**/*.ts",
     "**/*.tsx",
-    "types/**/*.ts",    // for additional types
-    ".next/types/**/*.ts"
+    "types/**/*.ts", // for additional types
+    ".next/types/**/*.ts",
+    "pages/404.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

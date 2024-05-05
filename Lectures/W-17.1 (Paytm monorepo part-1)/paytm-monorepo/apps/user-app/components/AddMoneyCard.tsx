@@ -18,7 +18,7 @@ const SUPPORTED_BANKS = [{
 
 export default function AddMoneyCard() {
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl)
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState<number>();
     const [provider, setProvider] = useState(SUPPORTED_BANKS[0]?.name || "");
 
     return (
@@ -28,6 +28,7 @@ export default function AddMoneyCard() {
                     id='amount'
                     label='Amount (in RS)'
                     type='number'
+                    value={amount}
                     placeholder='Amount'
                     onChange={(e) => {
                         // console.log(amount)
@@ -54,12 +55,8 @@ export default function AddMoneyCard() {
                     <Button
                         onclick={async () => {
                             // window.location.href = redirectUrl || ""
-                            if (amount < 1 || !redirectUrl) {
-                                if (amount < 1) {
-                                    alert("please enter valid amount")
-                                } else {
-                                    alert("pease choose provider")
-                                }
+                            if (!amount ||amount < 1 || !redirectUrl) {
+                                alert("please enter valid amount")
                             } else {
                                 const intAmount = generateIntAmount(amount);
                                 await createOnRampTrans(provider, intAmount)

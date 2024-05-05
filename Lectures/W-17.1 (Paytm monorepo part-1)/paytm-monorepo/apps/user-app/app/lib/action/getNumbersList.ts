@@ -2,7 +2,7 @@
 
 import db from '@manaspaytm/db/client'
 
-export async function getNumbersList(number: string): Promise<{ number: string; }[]> {
+export async function getNumbersList(number: string): Promise<{ number: string; name: string }[]> {
     const numbersList = await db.user.findMany({
         where: {
             number: {
@@ -10,9 +10,13 @@ export async function getNumbersList(number: string): Promise<{ number: string; 
             }
         },
         select: {
-            number: true
+            number: true,
+            name: true,
         }
     })
 
-    return numbersList;
+    return numbersList.map(entry => ({
+        number: entry.number,
+        name: entry.name || '', // If 'name' is null, fallback to an empty string
+    }));
 }

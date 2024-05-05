@@ -51,7 +51,7 @@ export const createOnRampTrans = async (provider: string, amount: number) => {
 
     } catch (error) {
         console.log(error);
-        return({      // refund the amount
+        return ({      // refund the amount
             message: "Error while updating data"
         })
     }

@@ -26,6 +26,12 @@ export default async function p2pTransfer(toAccNum: string, amount: number) {
         }
     }
 
+    if (fromAcc === toUser.id) {
+        return {
+            message: "lol !!! Can't transfer into own account"
+        }
+    }
+
     try {
         await db.$transaction(async (tx) => {
             await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${fromAcc} FOR UPDATE`; // this is for the locking of rows
@@ -62,14 +68,23 @@ export default async function p2pTransfer(toAccNum: string, amount: number) {
                     }
                 }
             })
+
+            await tx.p2PTransfer.create({
+                data: {
+                    amount,
+                    timestamp: new Date(),
+                    fromUserId: fromAcc,
+                    toUserId: toUser.id
+                }
+            })
         })
         return {
             message: "Transfer successful"
         }
-    } catch (error) {
+    } catch (error: any) {
         console.log(error)
         return {
-            message: error.message 
+            message: error.message
         }
     }
 }
