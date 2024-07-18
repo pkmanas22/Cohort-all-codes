@@ -1,0 +1,60 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "My API using Hono + Zod + OpenAPI"
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "123"
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "age": {
+            "type": "number",
+            "example": 30
+          }
+        },
+        "required": ["id", "name", "age"]
+      }
+    },
+    "parameters": {}
+  },
+  "paths": {
+    "/user/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 3,
+              "example": "12123"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrive the user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
